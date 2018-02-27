@@ -1,7 +1,10 @@
 package com.fedex.cds.corey.strings;
 
 import java.util.HashMap;
-
+/*
+*	Created for defining a dynamic list of properties
+*	Origin was to define different requirements for included fields for same request
+*/
 public class PropertyMapper{
 	private HashMap <String,String> map = new HashMap <String,String> ();
 	
@@ -38,8 +41,7 @@ public class PropertyMapper{
 		}
 		return temp.substring(0, temp.length()-1);
 	}
-	
-	
+		
 	/*
 	*	This is the internal method for splitting a string based on a single char
 	*		splitString("property=value","="); 
@@ -49,15 +51,11 @@ public class PropertyMapper{
 		return in.split(splitChar);
 	}
 	
-	/*
-	*	chars is expected to have length = 2 (returns null otherwise)
+	/*	chars is expected to have length = 2 (returns null otherwise)
 	*		makeSimpleMap("prop1=1;prop2=2;prop3=3",";="); 
-	*		returns HashMap{
-	*				"prop1","1"; 
+	*		returns HashMap{"prop1","1"; 
 	*				"prop2","2"; 
-	*				"prop3","3"
-	*		}
-	*/
+	*/				"prop3","3"}
 	private static HashMap<String,String> makeSimpleMap(String in, String splitChars){
 		if (splitChars.length() != 2) return null;
 		HashMap<String,String> tempMap = new HashMap<String,String>();
@@ -68,9 +66,4 @@ public class PropertyMapper{
 		}
 		return tempMap;
 	}
-	
-	
-	
-	
-	
 }
