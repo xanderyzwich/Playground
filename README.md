@@ -1,4 +1,5 @@
-This project is for the modular encoding/decoding of text data  
-There is no claim of encription or security  
+This is the home for my Python learning  
 
-The basic premise is ability to hide secret information in plain sight
+exercises - small assignments found online  
+
+encodifier - hiding messages in plain sight  
