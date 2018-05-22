@@ -40,17 +40,6 @@ class StringTool:
 		else: return False 
 	@staticmethod
 	def firstVowel(input_string):
-		for i in range(len(input_string)-1):
+		for i in range(len(input_string)):
 			if StringTool.isVowel(input_string,i): return i
 	
-	
-	@staticmethod
-	def echo(input_string):
-		print input_string
-	
-s1 = "this is fun"
-print "string =",s1 
-print ("First letter %(letter)s is a vowel is %(truth)s" % {'letter':s1.lower()[0], 'truth':StringTool.startVowel(s1) } )
-print ("Third letter %(letter)s is a vowel is %(truth)s" % {'letter':s1.lower()[2], 'truth':StringTool.isVowel(s1,2) } )
-print "Vowel count is", StringTool.countVowels(s1)
-print "The first vowel @", StringTool.firstVowel(s1), "is an", s1[StringTool.firstVowel(s1), "and isVowel returns", StringTool.isVowel(StringTool.firstVowel(s1))]
