@@ -112,4 +112,40 @@ class MathTool:
 			print "getPrimes WINS by",sieve_time-prime_time
 		else: 
 			print "there is a TIE at",sieve_time
+
+class Fraction:
+	numerator=0
+	denominator=1
+	value=numerator/denominator
 	
+	def __init__(self,input_numerator,input_denominator):
+		self.numerator=input_numerator
+		self.denominator=input_denominator
+		value = self.numerator / self.denominator
+	
+	def setNumerator(self,input_numerator):
+		self.numerator=input_numerator
+		self.setValue()
+	def getNumerator(self):
+		return self.numerator
+	def setDenominator(self,input_denominator):
+		self.denominator=input_denominator
+		self.setValue()
+	def getDenominator(self):
+		return self.denominator
+	def setValue(self):
+		self.value = self.numerator / self.denominator
+	def getValue(self):
+		return self.value
+	def__str__(self):
+		return str(self.numerator)
+	
+	
+	def add(self, other_fraction):
+		new_denom=MathTool.gcd(self.getDenominator(),other_fraction.getDenominator())
+		scale_self=new_denom/self.getDenominator()
+		scale_other=new_denom/other_fraction.getDenominator()
+		return Fraction(scale_self*self.getNumerator() + scale_other*other_fraction.getNumerator(),new_denom)
+one = Fraction(1,2)
+two = Fraction(1,2)
+print one, '+', two, '=', one.add(two)
