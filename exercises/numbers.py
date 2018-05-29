@@ -117,7 +117,7 @@ class MathTool:
 
 class Fraction:
 	
-	def __init__(self,input_numerator,input_denominator):
+	def __init__(self,input_numerator,input_denominator=1):
 		self.numerator=input_numerator
 		self.denominator=input_denominator
 		self.value = self.numerator / self.denominator
@@ -136,7 +136,6 @@ class Fraction:
 	def __str__(self):
 		return str(self.numerator) +"/" +str(self.denominator)
 	
-	
 	def add(self, other_fraction):
 		if self.denominator != other_fraction.denominator:
 			new_denom=MathTool.gcd(self.denominator,other_fraction.denominator)
@@ -145,7 +144,19 @@ class Fraction:
 			result = Fraction(scale_self*self.numerator + scale_other*other_fraction.numerator,new_denom)
 			return result.reduce()
 		else:
-			return Fraction(self.numerator+other_fraction.numerator,self.denominator)
+			return Fraction(self.numerator+other_fraction.numerator,self.denominator).reduce()
+	
+	def subtract(self, other_fraction):
+		return self.add(other_fraction.multiply(Fraction(-1))).reduce()
+	
+	def multiply(self, other_fraction):
+		return Fraction(self.numerator * other_fraction.numerator, self.denominator * other_fraction.denominator).reduce
+	
+	def divide(self, other_fraction):
+		return self.multiply(other_fraction.inverse()).reduce()
+	
+	def inverse(self):
+		return Fraction(self.denominator,self.numerator)
 	
 	def reduce(self):
 # 		print ("Reducing", self)
@@ -183,7 +194,19 @@ class MixedNumber:
 		output_fraction = self.fraction_part.add(input_mixed.fraction_part)
 		output_mixed = MixedNumber(output_integer,output_fraction).reduce()
 		return output_mixed
-	 
+	
+	def subtract(self,input_mixed):
+		return self.add(input_mixed.multiply(-1)).reduce
+	
+	def multiply(self,input_mixed):
+		return self.toFraction().multiply(input_mixed.toFraction()).reduce()
+	
+	def divide(self,input_mixed):
+		return self.toFraction().divide(input_mixed.toFraction()).reduce()
+	
+	def toFraction(self):
+		return FractioN(self.integer_part*self.denominator + self.numerator,self.denominator)
+	
 	def __str__(self):
 		output_string = ""
 		if self.integer_part > 0:
