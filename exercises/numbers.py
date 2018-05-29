@@ -96,24 +96,24 @@ class MathTool:
 	
 	@staticmethod
 	def comparePrimes(max_num):
-		print "testing sievePrimes v getPrimes for max_num=",max_num
+		print ("testing sievePrimes v getPrimes for max_num=",max_num)
 		from datetime import datetime as dt
 		before = dt.now()
-		print "Sieve"
-		print MathTool.sievePrimes(max_num)
+		print ("Sieve")
+		print (MathTool.sievePrimes(max_num))
 		sieve_time=dt.now()-before
-		print sieve_time
+		print (sieve_time)
 		before = dt.now()
-		print "Primes"
-		print MathTool.getPrimes(max_num)
+		print ("Primes")
+		print (MathTool.getPrimes(max_num))
 		prime_time=dt.now()-before
-		print prime_time
+		print (prime_time)
 		if sieve_time < prime_time: 
-			print "Sieve WINS by",prime_time-sieve_time
+			print ("Sieve WINS by",prime_time-sieve_time)
 		elif prime_time < sieve_time: 
-			print "getPrimes WINS by",sieve_time-prime_time
+			print ("getPrimes WINS by",sieve_time-prime_time)
 		else: 
-			print "there is a TIE at",sieve_time
+			print ("there is a TIE at",sieve_time)
 
 class Fraction:
 	
@@ -148,7 +148,7 @@ class Fraction:
 			return Fraction(self.numerator+other_fraction.numerator,self.denominator)
 	
 	def reduce(self):
-# 		print "Reducing", self
+# 		print ("Reducing", self)
 		if self.numerator in [0,1]: 
 			return self
 		elif self.numerator % self.denominator == 0 : #if integer 
@@ -169,7 +169,7 @@ class MixedNumber:
 		self.value = input_integer + input_fraction.value 
 	
 	def reduce (self):
-# 		print "Reducing",self
+# 		print ("Reducing",self)
 		output_fraction = self.fraction_part.reduce()
 		output_integer = self.integer_part
 		if output_fraction.value >= 1:
@@ -198,4 +198,4 @@ class MixedNumber:
 	
 test = MixedNumber(1,Fraction(1,2))
 thing = MixedNumber(0,Fraction(1,2))
-print test," + ",thing," = ", str(test.add(thing))
+print (test," + ",thing," = ", str(test.add(thing)))
