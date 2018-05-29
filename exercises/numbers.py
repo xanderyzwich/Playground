@@ -51,6 +51,8 @@ class MathTool:
 	@staticmethod
 	# Greatest Common Divisor
 	def gcd(input_one,input_two):
+		if input_one ==0 or input_two == 0: return 0
+		elif input_one == 1 or input_two == 1: return 1
 		divisor = 1
 		for number in MathTool.findCommon(MathTool.factor(input_one), MathTool.factor(input_two)):
 			divisor*=number
@@ -114,38 +116,86 @@ class MathTool:
 			print "there is a TIE at",sieve_time
 
 class Fraction:
-	numerator=0
-	denominator=1
-	value=numerator/denominator
 	
 	def __init__(self,input_numerator,input_denominator):
 		self.numerator=input_numerator
 		self.denominator=input_denominator
-		value = self.numerator / self.denominator
+		self.value = self.numerator / self.denominator
 	
 	def setNumerator(self,input_numerator):
 		self.numerator=input_numerator
 		self.setValue()
-	def getNumerator(self):
-		return self.numerator
+	
 	def setDenominator(self,input_denominator):
 		self.denominator=input_denominator
 		self.setValue()
-	def getDenominator(self):
-		return self.denominator
-	def setValue(self):
+	
+	def setValue(self): # triggers value to be corrected after numerator or denominator are changed
 		self.value = self.numerator / self.denominator
-	def getValue(self):
-		return self.value
-	def__str__(self):
-		return str(self.numerator)
+	
+	def __str__(self):
+		return str(self.numerator) +"/" +str(self.denominator)
 	
 	
 	def add(self, other_fraction):
-		new_denom=MathTool.gcd(self.getDenominator(),other_fraction.getDenominator())
-		scale_self=new_denom/self.getDenominator()
-		scale_other=new_denom/other_fraction.getDenominator()
-		return Fraction(scale_self*self.getNumerator() + scale_other*other_fraction.getNumerator(),new_denom)
-one = Fraction(1,2)
-two = Fraction(1,2)
-print one, '+', two, '=', one.add(two)
+		if self.denominator != other_fraction.denominator:
+			new_denom=MathTool.gcd(self.denominator,other_fraction.denominator)
+			scale_self=new_denom/self.denominator
+			scale_other=new_denom/other_fraction.denominator
+			result = Fraction(scale_self*self.numerator + scale_other*other_fraction.numerator,new_denom)
+			return result.reduce()
+		else:
+			return Fraction(self.numerator+other_fraction.numerator,self.denominator)
+	
+	def reduce(self):
+# 		print "Reducing", self
+		if self.numerator in [0,1]: 
+			return self
+		elif self.numerator % self.denominator == 0 : #if integer 
+			self = MixedNumber(self.numerator / self.denominator,Fraction(0,1))
+			return self
+		elif self.value >= 1: #if mixed number 
+			return MixedNumber(self.numerator/self.denominator,Fraction(self.numerator%self.denominator,self.denominator))
+		else: # otherwise insure fraction is reduced
+			new_denom = MathTool.gcd(self.numerator, self.denominator)
+			self = Fraction(self.numerator/new_denom,self.denominator/new_denom)
+			return self
+
+class MixedNumber:
+	
+	def __init__(self,input_integer,input_fraction):
+		self.integer_part=input_integer
+		self.fraction_part=input_fraction
+		self.value = input_integer + input_fraction.value 
+	
+	def reduce (self):
+# 		print "Reducing",self
+		output_fraction = self.fraction_part.reduce()
+		output_integer = self.integer_part
+		if output_fraction.value >= 1:
+			output_integer += output_fraction.reduce().integer_part
+			output_fraction = output_fraction.reduce().fraction_part
+		self = MixedNumber(output_integer,output_fraction)
+		return self
+	
+	def	add(self,input_mixed):
+		output_integer = self.integer_part+input_mixed.integer_part
+		output_fraction = self.fraction_part.add(input_mixed.fraction_part)
+		output_mixed = MixedNumber(output_integer,output_fraction).reduce()
+		return output_mixed
+	 
+	def __str__(self):
+		output_string = ""
+		if self.integer_part > 0:
+			output_string = output_string +str(self.integer_part)
+		if self.integer_part > 0 and self.fraction_part.numerator > 0:
+			output_string = output_string +" and "
+		if self.fraction_part.numerator > 0:
+			output_string = output_string +str(self.fraction_part) 
+		return  output_string
+
+
+	
+test = MixedNumber(1,Fraction(1,2))
+thing = MixedNumber(0,Fraction(1,2))
+print test," + ",thing," = ", str(test.add(thing))
