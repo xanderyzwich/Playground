@@ -1,5 +1,7 @@
 package com.me.data.annotated;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -8,30 +10,25 @@ public class Client {
     public static void main(String[] args) {
 //        ApplicationContext ac = new ClassPathXmlApplicationContext("com/me/data/annotated/spring.xml");
         ApplicationContext ac = new AnnotationConfigApplicationContext(ThingConfiguration.class);
+        Logger logger = LogManager.getLogger(Client.class);
 
         System.out.println();
         for(int i = 0; i < 3; i++){
-//            System.out.println("Thing One:");
             Thing thing1 = (Thing) ac.getBean("singletonThing", Thing.class);
-            thing1.print();
+            logger.warn("Thing One: " + thing1.toString());
         }
 
         System.out.println();
         for(int i = 0; i < 3; i++){
-//            System.out.println("Thing Two:");
             Thing annotatedThing = (Thing) ac.getBean("prototypeThing", ThingPrototype.class);
-//            annotatedThing.print();
-        }
+            logger.warn("Thing Two: " + annotatedThing.toString());
+         }
 
         System.out.println();
         for(int i = 0; i < 3; i++){
-//            System.out.println("Thing Two:");
             OtherThing prototypeOtherThing = (OtherThing) ac.getBean("otherThingPrototype", OtherThing.class);
-//            prototypeOtherThing.print();
+            logger.warn("Thing Two: " + prototypeOtherThing.toString());
         }
-
-//        Log log = (Log) ac.getBean(Log.class);
-
 
 
         ((AnnotationConfigApplicationContext)ac).close();

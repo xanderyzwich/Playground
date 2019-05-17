@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+
+		<RollingRandomAccessFile name="Creation" fileName="log/creation.log"
+								 filePattern="log/creation.log.%i">
+			<PatternLayout pattern="%d %-5p- %m%n"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="10"/>
+		</RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="Execution" fileName="log/execution.log"
+								 filePattern="log/execution.log.%i">
+			<PatternLayout pattern="%d %-5p- %m%n"/>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="25"/>
+		</RollingRandomAccessFile>
+
+		<Console name="Console">
+			<PatternLayout pattern="%d %-5level %logger{36} - %msg%n"/>
+		</Console>
+
+	</Appenders>
+
+	<Loggers>
+
+		<logger name="com.me.beans.DisplayNameBeanPostProcessor" additivity="false" level="DEBUG">
+			<appender-ref ref="Creation" />
+		</logger>
+		
+		<logger name="com.me.aspect.Log" additivity="false" level="DEBUG">
+			<appender-ref ref="Execution" />
+		</logger>
+
+		<Root level="INFO">
+			<AppenderRef ref="Console"/>
+		</Root>
+	</Loggers>
+</Configuration>
