@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+    default-autowire="constructor">
+
+    <bean id="pointParent" class="com.me.data.xml.Point" init-method="myInit" destroy-method="myDestroy" abstract="true"/>
+    <bean id="origin" parent="pointParent">
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <bean id="point2" parent="pointParent">
+        <property name="x" value="1"/>
+        <property name="y" value="0"/>
+    </bean>
+
+    <alias name="origin" alias="point1"/>
+
+    <bean id="point3" parent="pointParent">
+        <property name="x" value="0"/>
+        <property name="y" value="1"/>
+    </bean>
+
+    <bean id="triangle" class="com.me.data.xml.Triangle">
+        <property name="one" ref="point1"/>
+        <property name="two" ref="point2"/>
+        <property name="three" ref="point3"/>
+    </bean>
+
+    <bean id="triangle-inner" class="com.me.data.xml.Triangle">
+        <property name="one" ref="point1"/>
+        <property name="two">
+            <bean class="com.me.data.xml.Point">
+                <property name="x" value="2"/>
+                <property name="y" value="0"/>
+            </bean>
+        </property>
+        <property name="three">
+            <bean class="com.me.data.xml.Point">
+                <property name="x" value="0"/>
+                <property name="y" value="2"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- use for autowire="byName" -->
+    <alias name="origin" alias="one"/>
+    <alias name="point2" alias="two"/>
+    <alias name="point3" alias="three"/>
+    <!-- autowire="byType" requires no more than one bean of a given type to exist -->
+    <!-- autowire="constructor" requires names to exist like "byName" -->
+    <bean id="triangle-autowire" class="com.me.data.xml.Triangle" autowire="constructor"/>
+
+<!--    <bean id="triangle-annotations" class="com.meta.xml.Triangle"/>-->
+
+
+    <bean id="triangles" class="com.me.data.xml.Triangles">
+        <property name="triangles">
+            <list>
+                <ref bean="triangle"/>
+                <ref bean="triangle-inner"/>
+                <ref bean="triangle-autowire"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- bean definition inheritance -->
+    <bean id="parentTriangle" class="com.me.data.xml.Triangle" abstract="true">
+        <property name="one" ref="origin"/>
+    </bean>
+    <bean id="triangle1" class="com.me.data.xml.Triangle" parent="parentTriangle">
+        <property name="two" ref="point2"/>
+        <property name="three" ref="point3"/>
+    </bean>
+    <bean id="triangle2" class="com.me.data.xml.Triangle" parent="parentTriangle">
+        <property name="two" ref="point2"/>
+    </bean>
+
+    <bean id="trianglesChild" class="com.me.data.xml.Triangles" parent="triangles">
+        <property name="triangles">
+            <list merge="true">
+                <ref bean="triangle1"/>
+                <ref bean="triangle2"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="counter" class="com.me.data.xml.Counter" scope="singleton"/>
+    <bean id="thingOne" scope="singleton" class="com.me.data.xml.Thing" autowire="constructor" >
+        <constructor-arg index="0" type="int" value="#{counter.getCount()}"/>
+    </bean>
+    <bean id="thingTwo" scope="prototype" class="com.me.data.xml.Thing" />
+
+    <context:property-placeholder location="classpath:/com/corey/properties/my.properties"/>
+    <bean id="annotatedThing1" scope="singleton" class="com.me.data.xml.AnnotatedThing" autowire="byName">
+        <property name="description" value="${def-thing}"/>
+    </bean>
+    <bean id="annotatedThing2" scope="prototype" class="com.me.data.xml.AnnotatedThing" autowire="byName"/>
+
+    <bean class="com.me.beans.DisplayNameBeanPostProcessor"/>
+
+</beans>
