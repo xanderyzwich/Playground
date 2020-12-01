@@ -1,0 +1,41 @@
+        Sender: LSF System <lsfadmin@nodecn221>
+        Subject: Job 110694554: <toil_job_2> in cluster <hpcf_research_cluster> Exited
+
+        Job <toil_job_2> was submitted from host <nodecn001> by user <dkennetz> in cluster <hpcf_research_cluster> at Mon Oct 12 16:12:20 2020.
+        Job was executed on host(s) <nodecn221>, in queue <standard>, as user <dkennetz> in cluster <hpcf_research_cluster> at Mon Oct 12 16:12:22 2020.
+        </home/dkennetz> was used as the home directory.
+        </home/dkennetz/toil_test/cwl/.> was used as the working directory.
+        Started at Mon Oct 12 16:12:22 2020.
+        Terminated at Mon Oct 12 16:12:28 2020.
+        Results reported at Mon Oct 12 16:12:28 2020.
+
+        Your job looked like:
+
+        ------------------------------------------------------------
+        # LSBATCH: User input
+        _toil_worker file:///research/rgs01/home/clusterHome/dkennetz/toil_test/cwl/bwa-mem.cwl file:/research/rgs01/home/clusterHome/dkennetz/toil_test/cwl/TEST kind-file_research_rgs01_home_clusterHome_dkennetz_toil_test_cwl_bwa-mem.cwl/instance-0iv_hcxt
+        ------------------------------------------------------------
+
+        TERM_MEMLIMIT: job killed after reaching LSF memory usage limit.
+        Exited with exit code 1.
+
+        Resource usage summary:
+
+            CPU time :                                   2.40 sec.
+            Max Memory :                                 2824 MB
+            Average Memory :                             1418.00 MB
+            Total Requested Memory :                     500.00 MB
+            Delta Memory :                               -2324.00 MB
+            Max Swap :                                   -
+            Max Processes :                              4
+            Max Threads :                                5
+            Run time :                                   6 sec.
+            Turnaround time :                            8 sec.
+
+        The output (if any) follows:
+
+
+
+        PS:
+
+        Read file </research/rgs01/home/clusterHome/dkennetz/toil_test/cwl/workdir/toil_workflow_f3d538ed-c638-4492-bea0-44754e0c6c92_job_2_batch_lsf_110694554_std_error.log> for stderr output of this job.
