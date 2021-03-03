@@ -33,6 +33,7 @@ def maximum_profit(n, prices):
     actions_remain = n
     have_stock = False
     profit = 0
+    profits = []
 
     deltas = []
     for i in range(len(prices)-1):
@@ -43,23 +44,25 @@ def maximum_profit(n, prices):
 
     for i, trend in enumerate(deltas):
         price = prices[i]
-        if trend == 'up' and not have_stock and actions_remain > 1:  # buy
+        if trend == 'up' and not have_stock:  # buy
             have_stock = True
             profit -= price
-            actions_remain -= 1
-            print(f'    Buying at {price}, with {profit} total profit')
+            print(f'    Buying at {price}, for {profit} total profit')
         elif trend == 'down' and have_stock:  # sell
             have_stock = False
-            profit += price
-            actions_remain -= 1
-            print(f'    Selling at {price}, with {profit} total profit')
+            profits.append(profit+price)
+            print(f'    Selling at {price}, with {profit} profit')
+            log(f'      profits list', profits)
+            profit = 0
 
-    return log('  profit', profit)
+    log('  possible profits', profits)
+    actual_profits = log('  chosen profits', sorted(profits, reverse=True)[:(n//2)])
+    return log('  profit', sum(actual_profits))
 
 
-def log(label, thing):
-    print(f'{label}: {thing}')
-    return thing
+def log(label, value):
+    print(f'{label}: {value}')
+    return value
 
 
 class TestMaxProfit(TestCase):
@@ -69,7 +72,7 @@ class TestMaxProfit(TestCase):
         [4, [5, 8, 9, 3, 3], 4],
         [1, [5, 4, 9, 1, 6], 0],
         [4, [5, 8, 0, 9, 3], 12],
-        # [4, [5, 8, 0, 9, 3], 9],
+        [3, [5, 8, 0, 9, 3], 9],
     ]
 
     def test_max_profit_examples(self):
