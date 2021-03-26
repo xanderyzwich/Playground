@@ -26,8 +26,21 @@ def combine_alternating_alternate(input_a, input_b):
 
 
 class TestCombineAlternating(TestCase):
-    a, b = ['a', 'b', 'c', 'd', 'e'], ['1', '2', '3']
+    data = [
+        {
+            'arg1': ['a', 'b', 'c', 'd', 'e'],
+            'arg2': ['1', '2', '3'],
+            'expected': ['a', '1', 'b', '2', 'c', '3', 'd', 'e'],
+        },
+        {
+            'arg1': ['a', 'b', 'c'],
+            'arg2': ['1', '2', '3'],
+            'expected': ['a', '1', 'b', '2', 'c', '3']
+        }
+    ]
 
     def test_data(self):
-        print(combine_alternating(self.a, self.b))
-        print(combine_alternating_alternate(self.a, self.b))
+        for t in self.data:
+            assert combine_alternating(t['arg1'], t['arg2']) == t['expected']
+            # print('', combine_alternating(t['arg1'], t['arg2']))
+            # print('', combine_alternating_alternate(t['arg1'], t['arg2']))
