@@ -49,7 +49,7 @@ def function_details(func, concurrent=False):
             print_function_call(func, args, kwargs, indent)
 
         print(f'{indent}Return: {output}')
-        print(f'{indent}Runtime: {int((start-end) * 1000)} millis')
+        print(f'{indent}Runtime: {int((end-start) * 1000)} millis')
         return output
 
     return wrapper_function_details
