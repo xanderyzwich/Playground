@@ -1,4 +1,4 @@
-import { minMaxGolf as minMax } from "../../../puzzles/sets/min_max"
+import { minMaxGolf as minMax } from ".././sets/min_max"
 
 describe("Testing the minMax function", ()  => {
     test("One through five", () => {

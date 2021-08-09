@@ -1,4 +1,4 @@
-import { countTrue } from "../../puzzles/count_true"
+import { countTrue } from "./count_true"
 
 
 describe("Does it work?", () =>{

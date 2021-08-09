@@ -1,4 +1,4 @@
-import { ipsbetween } from "../../puzzles/ipv4_difference";
+import { ipsbetween } from "./ipv4_difference";
 
 describe("Testing IPV4 count between given IP addresses", () => {
     test("'10.0.0.0', and '10.0.0.50'", () =>{

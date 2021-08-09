@@ -1,4 +1,4 @@
-import { reverse_array } from "../../../puzzles/sets/reverse_array"
+import { reverse_array } from ".././sets/reverse_array"
 
 describe("Testing reverse array", () => {
     test("title", () => {

@@ -1,4 +1,4 @@
-import { sum_of_multiples } from "../../puzzles/product_sum_three_five";
+import { sum_of_multiples } from "./product_sum_three_five";
 
 describe("Testing sum_of_multiples", () => {
     test("10 should return 23", () => {

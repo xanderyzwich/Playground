@@ -1,4 +1,4 @@
-import { generate } from "../../../puzzles/sets/generate";
+import { generate } from ".././sets/generate";
 
 describe("Testing generate", () => {
     test("Does it work?", () => {

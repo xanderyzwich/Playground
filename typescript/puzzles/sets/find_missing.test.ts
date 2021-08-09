@@ -1,4 +1,4 @@
-import { find_missing } from "../../../puzzles/sets/find_missing";
+import { find_missing } from ".././sets/find_missing";
 
 describe("Testing find_missing", () => {
     test("Does it work?", () => {

@@ -1,4 +1,4 @@
-import { bubble_sort } from "../../../puzzles/sets/bubble_sort";
+import { bubble_sort } from ".././sets/bubble_sort";
 
 describe("Test bubble_sort", () =>  {
     test("Does it work?", () => {

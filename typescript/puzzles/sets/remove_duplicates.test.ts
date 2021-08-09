@@ -1,4 +1,4 @@
-import { remove_duplicates } from "../../../puzzles/sets/remove_duplicates";
+import { remove_duplicates } from ".././sets/remove_duplicates";
 
 describe("Test remove_duplicates", () => {
     test("Compare with bubble_sort", () =>{

@@ -1,4 +1,4 @@
-import { find_duplicate } from "../../../puzzles/sets/find_duplicate";
+import { find_duplicate } from ".././sets/find_duplicate";
 
 describe("Testing find_duplicate", () => {
     test("Does it work?", () => {
